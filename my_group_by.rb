@@ -27,5 +27,3 @@ module Enumerable
   end
 
 end
-
-p [1,2,3,4].my_group_by {|x| x.odd?}
