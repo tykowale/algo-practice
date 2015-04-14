@@ -11,19 +11,46 @@
 maze = <<-MAZE
 o#........
 .#####.##.
-.......##.
-######.#*.
-.......###
-MAZE
+  .......##.
+  ######.#*.
+  .......###
+  MAZE
 
 maze = maze.split("\n").map { |x| x.chars }
 
 def location_finder(maze)
   maze.each_index do |row|
     maze.each_index do |col|
-      if maze[row, col] == 'o'
+      if maze[row][col] == 'o'
         return [row, col]
+      end
     end
   end
+  nil
 end
 
+def move(row_shift, col_shift, maze)
+  row, col = location_finder(maze)
+  return nil if maze.nil?
+  maze[row][col] = 'x'
+  row += row_shift
+  col += col_shift
+
+  if maze[row][col] == "*"
+    puts maze
+    return "SOLVED"
+  elsif maze[row][col] == "."
+    maze[row][col] = "o"
+    maze[row - row_shift][col - col_shift] = "x"
+    return maze
+  else
+    return nil
+  end
+
+end
+
+def solver(maze, history="")
+  10.times { solver(move(1,0,maze)) }
+end
+
+solver(maze)
