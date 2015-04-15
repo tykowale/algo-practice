@@ -9,16 +9,17 @@
 # o is your start point
 # * is your goal
 maze = <<-MAZE
-.#........
+o#........
 .#####.##.
 .......##.
-######.#*o
+######.#*.
 .......###
 MAZE
 
 maze = maze.split("\n").map { |x| x.chars }
 
 def location_finder(maze)
+  return nil if maze.nil?
   maze.each_index do |row|
     maze[row].each_index do |col|
       if maze[row][col] == 'o'
@@ -30,11 +31,13 @@ def location_finder(maze)
 end
 
 def move(row_shift, col_shift, maze)
+  return nil if maze.nil?
   row, col = location_finder(maze)
   row += row_shift
   col += col_shift
 
   if maze[row][col] == "*"
+    maze.each { |x| p x }
     return "SOLVED"
   elsif maze[row][col] == "."
     maze[row][col] = "o"
@@ -46,5 +49,14 @@ def move(row_shift, col_shift, maze)
 
 end
 
+def solver(maze, counter=0)
+  puts counter
+  solver(move(1,0,maze), counter+1) ||
+  solver(move(-1,0,maze), counter+1) ||
+  solver(move(0,1,maze), counter+1) ||
+  solver(move(0,-1,maze), counter+1)
 
+end
+
+solver(maze)
 
