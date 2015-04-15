@@ -19,7 +19,6 @@ MAZE
 maze = maze.split("\n").map { |x| x.chars }
 
 def location_finder(maze)
-  return nil if maze.nil?
   maze.each_index do |row|
     maze[row].each_index do |col|
       if maze[row][col] == 'o'
@@ -31,10 +30,18 @@ def location_finder(maze)
 end
 
 def move(row_shift, col_shift, maze)
-  return nil if maze.nil?
   row, col = location_finder(maze)
   row += row_shift
   col += col_shift
+
+  if row >= maze.length
+    return nil
+  elsif col >= maze[0].length
+    return nil
+  end
+
+  maze.each { |x| p x }
+  p [row_shift, col_shift]
 
   if maze[row][col] == "*"
     maze.each { |x| p x }
@@ -49,14 +56,14 @@ def move(row_shift, col_shift, maze)
 
 end
 
-def solver(maze, counter=0)
-  puts counter
-  solver(move(1,0,maze), counter+1) ||
-  solver(move(-1,0,maze), counter+1) ||
-  solver(move(0,1,maze), counter+1) ||
-  solver(move(0,-1,maze), counter+1)
+def solver(maze)
+  return nil if maze.nil?
+  solver(move(1,0,maze)) ||
+  solver(move(-1,0,maze)) ||
+  solver(move(0,1,maze)) ||
+  solver(move(0,-1,maze))
 
 end
 
 solver(maze)
-
+# p maze.length
