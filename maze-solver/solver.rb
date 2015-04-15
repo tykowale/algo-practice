@@ -38,10 +38,9 @@ def move(row_shift, col_shift, maze)
     return nil
   elsif col >= maze[0].length
     return nil
+  elsif 0 > (row||col)
+    return nil
   end
-
-  maze.each { |x| p x }
-  p [row_shift, col_shift]
 
   if maze[row][col] == "*"
     maze.each { |x| p x }
@@ -58,6 +57,10 @@ end
 
 def solver(maze)
   return nil if maze.nil?
+  if maze == "SOLVED"
+    return "SOLVED!"
+  end
+
   solver(move(1,0,maze)) ||
   solver(move(-1,0,maze)) ||
   solver(move(0,1,maze)) ||
@@ -65,5 +68,5 @@ def solver(maze)
 
 end
 
-solver(maze)
+p solver(maze)
 # p maze.length
