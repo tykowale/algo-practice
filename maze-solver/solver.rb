@@ -57,12 +57,13 @@ end
 
 def solver(maze)
   return nil if maze.nil?
+
   if maze == "SOLVED"
     return "SOLVED!"
   end
 
-  solver(move(1,0,maze)) ||
   solver(move(-1,0,maze)) ||
+  solver(move(1,0,maze)) ||
   solver(move(0,1,maze)) ||
   solver(move(0,-1,maze))
 
