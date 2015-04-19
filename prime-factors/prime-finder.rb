@@ -8,5 +8,3 @@ def prime_factors(num, all_factors=[])
   end
   all_factors
 end
-
-p prime_factors(600851475143)
