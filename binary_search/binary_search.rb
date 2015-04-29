@@ -5,16 +5,13 @@ class Array
     bottom = 0
 
     while bottom <= top
-      target = (top + bottom) / 2
-      bottom += 1 if self[target] < num
-      top += 1 if self[target] > num
-      return target if self[target] == num
-    end 
+      middle = (top + bottom) / 2
+      bottom = middle + 1 if self[middle] < num
+      top = middle - 1 if self[middle] > num
+      return middle if self[middle] == num
+    end
 
-    return -1
+    -1
   end
 
 end
-
-p [1,2,4,8,10,15,23,45,102,197,487,1002].my_binary_search(1002)
-
